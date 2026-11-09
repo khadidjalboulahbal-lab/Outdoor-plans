@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A2 · Outdoor Activities</title>
+<style>
+:root{--ink:#1c2b40;--bg:#f4f8fd;--card:#fff;--violet:#0b2f6b;--onv:#fff;--lav:#d0eeff;--gold:#ffb800;--ok:#0a8a43;--no:#d4161e;--mute:#4a5f7d;--blue:#0a74ff;--copper:#c97e2e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--ink:#eef4ff;--bg:#101b2d;--card:#1c2b40;--violet:#4da3ff;--onv:#0b1a33;--lav:#0b2f6b;--mute:#9fb4d4}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 "Trebuchet MS",Verdana,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:2rem;margin:.2em 0}h2{font-size:1.25rem;margin:1.4em 0 .4em}
+.sub{color:var(--mute);margin:0 0 12px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+nav button,.btn{font:inherit;border:2px solid var(--violet);background:var(--card);color:var(--violet);padding:8px 16px;border-radius:999px;cursor:pointer;font-weight:bold}
+nav button[aria-selected=true],.btn.pri{background:var(--violet);color:var(--onv)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section{display:none}section.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.cw{position:relative}
+.fc{position:relative;width:100%;perspective:700px;height:260px;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit}
+.fc i{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;border-radius:18px;backface-visibility:hidden;transition:transform .45s;font-style:normal}
+.front{background:var(--card);border:2px solid var(--lav)}
+.back{background:var(--violet);color:var(--onv);transform:rotateY(180deg);font-size:.85rem;gap:4px}
+.fc.flip .front{transform:rotateY(-180deg)}.fc.flip .back{transform:rotateY(0)}
+.emo{font-size:3rem}.w{font-weight:bold;font-size:1.25rem}
+.hint{font-size:.85rem;color:var(--mute)}
+.spk{position:absolute;top:6px;right:6px;z-index:2;width:36px;height:36px;padding:0;border-radius:50%;border:2px solid var(--violet);background:var(--card);cursor:pointer;font-size:1rem;line-height:1}
+.spk.sm{position:static;display:inline-block;vertical-align:middle;margin-left:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;padding:6px 14px;border-radius:999px;border:2px solid var(--blue);background:var(--card);color:var(--ink);cursor:pointer}
+.tip{background:var(--card);border:2px solid var(--lav);border-left:8px solid var(--blue);border-radius:14px;padding:12px 16px;margin:14px 0}
+.q{background:var(--card);border:2px solid var(--lav);border-radius:18px;padding:18px}
+.q .clue{font-size:1.2rem;font-weight:bold;margin:0 0 12px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts button{font:inherit;padding:12px;border-radius:12px;border:2px solid var(--lav);background:var(--bg);color:var(--ink);cursor:pointer;font-weight:bold}
+.opts button.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opts button.no{background:var(--no);color:#fff;border-color:var(--no)}
+.bar{height:10px;background:var(--lav);border-radius:9px;overflow:hidden;margin:0 0 14px}
+.bar b{display:block;height:100%;width:0;background:var(--blue);transition:width .3s}
+.score{font-size:1.6rem;font-weight:bold;text-align:center}
+.d{background:var(--card);border:2px solid var(--lav);border-left:8px solid var(--gold);border-radius:14px;padding:14px 16px;margin:12px 0}
+.d p{margin:0 0 6px;font-weight:bold}.frame{color:var(--violet);margin:0 0 8px}
+.d details{color:var(--mute)}.d summary{cursor:pointer;color:var(--violet);font-weight:bold}
+textarea{font:inherit;padding:8px 12px;border-radius:10px;border:2px solid var(--lav);background:var(--bg);color:var(--ink);width:100%;min-height:90px;margin-top:6px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><main>
+<h1>Outdoor Activities</h1>
+<p class="sub">A2 · Vocabulary and discussion</p>
+<nav role="tablist">
+<button role="tab" aria-selected="true" data-t="learn">1. Learn</button>
+<button role="tab" aria-selected="false" data-t="play">2. Practise</button>
+<button role="tab" aria-selected="false" data-t="talk">3. Discuss</button>
+</nav>
+
+<section id="learn" class="on">
+<p class="sub">Tap a card to flip it and hear it. Tap 🔊 to hear the word and a sentence.</p>
+<div class="grid" id="cards"></div>
+<div class="tip"><b>Grammar tip:</b> after <i>like, love, enjoy</i> and <i>hate</i>, we use the <b>-ing</b> form.<br>I <b>love camping</b>. She <b>enjoys rowing</b>. We <b>don’t like gardening</b>.
+<button class="spk sm" data-say="I love camping. She enjoys rowing. We don't like gardening." aria-label="Listen">🔊</button></div>
+<h2>Word bank</h2>
+<p class="hint">Tap a word to hear it.</p>
+<div class="chips" id="chips"></div>
+</section>
+
+<section id="play">
+<div class="bar"><b id="prog"></b></div>
+<div id="quiz"></div>
+</section>
+
+<section id="talk">
+<p class="sub">Work in pairs. Ask, answer, then swap. Use the sentence frame to help you.</p>
+<div id="disc"></div>
+<div class="d"><p>Your turn: write three sentences about your favourite outdoor activity.</p>
+<p class="frame">My favourite activity is ___. I like it because ___. Last time, I ___.</p>
+<textarea aria-label="Write about your favourite activity" placeholder="Type your sentences here…"></textarea></div>
+</section>
+</main>
+<script>
+function say(t){if(!("speechSynthesis" in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.rate=.85;const v=speechSynthesis.getVoices().find(x=>x.lang.startsWith("en"));if(v)u.voice=v;speechSynthesis.speak(u)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b){e.preventDefault();say(b.dataset.say)}});
+
+const W=[
+["gardening","🌱","growing flowers, fruit or vegetables outside","You need: a spade, seeds, water","I do gardening every Sunday morning."],
+["kayaking","🛶","moving on water in a small, narrow boat with a paddle","You need: a kayak, a paddle, a life jacket","We went kayaking on the river last summer."],
+["camping","⛺","sleeping outside in a tent for a night or more","You need: a tent, a sleeping bag, a torch","My family goes camping in the mountains every August."],
+["rowing","🚣","moving a boat with two long oars; you face backwards","You need: a boat, two oars, strong arms","He is learning rowing at the sports club."]];
+const cards=document.getElementById("cards");
+W.forEach(([w,e,d,g,s])=>{const wrap=document.createElement("div");wrap.className="cw";const b=document.createElement("button");b.className="fc";b.setAttribute("aria-label",w);
+b.innerHTML=`<i class="front"><span class="emo">${e}</span><span class="w">${w}</span></i><i class="back"><b>${w}</b><span>${d}</span><span>${g}</span><em>“${s}”</em></i>`;
+b.onclick=()=>{b.classList.toggle("flip");say(b.classList.contains("flip")?s:w)};
+wrap.appendChild(b);wrap.insertAdjacentHTML("beforeend",`<button class="spk" data-say="${w}. ${s}" aria-label="Listen to ${w}">🔊</button>`);cards.appendChild(wrap)});
+const chips=document.getElementById("chips");
+[["a spade","⛏️"],["seeds","🌰"],["a paddle","🛶"],["a life jacket","🦺"],["a tent","⛺"],["a sleeping bag","🛌"],["a campfire","🔥"],["an oar","🚣"],["a river","🌊"],["a lake","🏞️"],["a garden","🌷"],["a campsite","🏕️"]].forEach(([t,e])=>chips.insertAdjacentHTML("beforeend",`<button class="chip" data-say="${t}"><span style="font-size:1.5rem;vertical-align:middle">${e}</span> ${t}</button>`));
+
+const Q=[
+["You need a tent and a sleeping bag for…",["camping","rowing","gardening","kayaking"],0],
+["You use a paddle to move a small boat. This is…",["gardening","kayaking","camping","rowing"],1],
+["You sit, face backwards and pull two oars. This is…",["rowing","camping","kayaking","gardening"],0],
+["You plant seeds and water flowers. This is…",["camping","rowing","kayaking","gardening"],3],
+["We went ___ at the lake and slept under the stars.",["rowing","gardening","camping","kayaking"],2],
+["Which one is NOT done on water?",["kayaking","rowing","gardening","sailing"],2],
+["What do you need for gardening?",["a spade","an oar","a tent","a life jacket"],0],
+["I like ___ in my garden.",["garden","gardens","to gardening","gardening"],3],
+["She ___ kayaking every summer.",["go","goes","going","gone"],1],
+["Which activity do you do with a life jacket and a paddle?",["camping","gardening","kayaking","hiking"],2]];
+let i=0,s=0;const quiz=document.getElementById("quiz"),prog=document.getElementById("prog");
+function show(){prog.style.width=(i/Q.length*100)+"%";
+if(i>=Q.length){quiz.innerHTML=`<div class="q"><p class="score">${s} / ${Q.length} ⭐</p><p style="text-align:center">${s>=8?"Great job!":s>=5?"Good work! Try again.":"Look at the cards again, then try again."}</p><p style="text-align:center"><button class="btn pri" id="re">Play again</button></p></div>`;
+document.getElementById("re").onclick=()=>{i=0;s=0;show()};return}
+const [c,o,a]=Q[i];quiz.innerHTML=`<div class="q"><p class="hint">Question ${i+1} of ${Q.length}</p><p class="clue">${c}<button class="spk sm" data-say="${c}" aria-label="Listen">🔊</button></p><div class="opts">${o.map((t,k)=>`<button data-k="${k}">${t}</button>`).join("")}</div></div>`;
+quiz.querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{const k=+b.dataset.k;
+quiz.querySelectorAll(".opts button").forEach(x=>x.disabled=true);
+quiz.querySelector(`[data-k="${a}"]`).classList.add("ok");if(k===a)s++;else b.classList.add("no");
+setTimeout(()=>{i++;show()},1100)})}
+show();
+
+const D=[
+["Which of these activities do you like? Why?","I like ___ because it is ___. / I don’t like ___ because it is ___.","I like kayaking because it is exciting."],
+["Have you ever tried kayaking or rowing?","Yes, I have. I tried it in ___. / No, I haven’t, but I’d like to.","No, I haven’t, but I’d like to try kayaking."],
+["What do you need for camping?","For camping, you need a ___, a ___ and ___.","For camping, you need a tent, a sleeping bag and a torch."],
+["Do you have a garden? What is in it?","Yes, I do. There is a ___ and there are some ___. / No, I don’t.","Yes, I do. There is a tree and there are some flowers."],
+["What did you do last weekend?","Last weekend I ___. / I didn’t ___.","Last weekend I went camping with my cousins."],
+["Which is more relaxing: gardening or rowing? Why?","I think ___ is more relaxing than ___ because ___.","I think gardening is more relaxing than rowing because it is quiet."]];
+const disc=document.getElementById("disc");
+D.forEach(([q,f,m],n)=>{disc.insertAdjacentHTML("beforeend",`<div class="d"><p>${n+1}. ${q}<button class="spk sm" data-say="${q}" aria-label="Listen">🔊</button></p><p class="frame">${f}</p><details><summary>Show an example answer</summary>${m}<button class="spk sm" data-say="${m}" aria-label="Listen">🔊</button></details></div>`)});
+
+const tabs=document.querySelectorAll("nav button");
+tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>x.setAttribute("aria-selected",x===t));
+document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===t.dataset.t))});
+</script></body></html>
